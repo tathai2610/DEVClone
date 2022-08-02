@@ -1,0 +1,49 @@
+- if comment.persisted? 
+  .post-comment.container-fluid.px-0.pt-1
+    .row.m-auto
+      .col-1.px-0 
+        = link_to comment.user do
+          = image_tag url_for(comment.user.show_avatar(35,35))
+      .col-11.px-0[id="comment-#{comment.id}"]
+        .comment-container.border.border-2
+          .comment-user-info.d-flex.align-items-center
+            span = link_to comment.user.name, comment.user, class: "text-decoration-none text-dark"
+            span.comment-create-date.ms-1 • #{comment.created_at.strftime("%b %-d")}
+            - if comment.created_at != comment.updated_at 
+              span.comment-update-date.ms-1 • Edited on #{comment.updated_at.strftime("%b %-d") }
+            - if comment.user == current_user 
+              .comment-options.ms-auto
+                span.comment-options-icon •••
+                .comment-options-content.border
+                  ul
+                    li = link_to [:edit, commentable, comment], remote: true do 
+                      i.fa-regular.fa-pen-to-square.me-3
+                      | Edit 
+                    li = link_to [commentable, comment], method: :delete, data: { confirm: "Are you sure?" }, remote: true  do 
+                      i.fa-regular.fa-trash-can.me-3
+                      | Remove 
+          .comment-content #{comment.content}
+        .comment-interaction.d-flex.mt-1
+          .comment-like-section 
+            - if !user_signed_in? || !current_user.liked?(comment)
+              = link_to [comment, :likes], method: :post, remote: (user_signed_in? ? true : false) do 
+                .comment-like
+                  i.fa-regular.fa-heart 
+                  span.ms-1 = comment.likes.size
+            - else 
+              = link_to [comment, :like], method: :delete, remote: true do
+                .comment-like.comment-liked 
+                  i.fa-solid.fa-heart 
+                  span.ms-1 = comment.likes.size 
+          .comment-reply-section
+            = link_to [:new, comment, :comment], remote: (user_signed_in? ? true : false) do 
+              .comment-reply
+                i.fa-regular.fa-comment 
+                span.ms-1 Reply
+        - if comment.comments.any? 
+          = render partial: "comments/comment", collection: comment.comments.order('created_at DESC'), locals: { commentable: comment, current_user: current_user, user_signed_in?: user_signed_in? }
+        
+      
+
+            
+

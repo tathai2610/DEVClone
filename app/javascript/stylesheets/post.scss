@@ -1,0 +1,25 @@
+@use "post-index";
+@use "post-show";
+@use "post-new";
+
+@mixin btn-state($color) {
+  padding: 6px 12px;
+  color: $color;
+  border: 2px solid $color;
+  background-color: white;
+  font-weight: bold;
+  border-radius: 7px;
+  margin-left: auto;
+}
+
+.btn-state-draft {
+  @include btn-state(red);
+}
+
+.btn-state-queued {
+  @include btn-state(blue);
+}
+
+.btn-state-public {
+  @include btn-state(green);
+}

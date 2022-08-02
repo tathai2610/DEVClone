@@ -1,0 +1,5 @@
+if ($("#new_comment_comment_form").length)
+  $("#new_comment_comment_form").remove()
+
+$("#comment-<%= @commentable.id %>>div:nth-child(2)").after("<%= j render(partial:"comments/new_comment_form", locals: { commentable: @commentable }) %>")
+$("#new_comment_comment_form").enableClientSideValidations();

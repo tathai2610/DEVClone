@@ -1,0 +1,58 @@
+$gray: #f5f5f5;
+$white: #FFFFFF;
+$black: #242424;
+$blue: #3B49DF;
+$pink: #d600ff;
+$green: #00ff9f;
+$light-blue: #00b8ff;
+$red: #ff0831;
+
+$gray-text: #575757;
+
+.button {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 7px;
+}
+
+.button-white {
+  @extend .button;
+  color: $black;
+
+  &:hover {
+      background-color: #caf0f8;
+      text-decoration: underline;
+      color: $blue;
+  }
+}
+
+.button-blue {
+  @extend .button;
+  color: $blue;
+  border: solid 1px $blue;
+
+  &:hover {
+      background-color: $blue;
+      text-decoration: underline;
+      color: $white;
+  }
+}
+
+.background-white {
+  background-color: $white;
+}
+
+.body-content {
+  position: relative;
+  top: 58px;
+}
+
+.section {
+  border-radius: 7px;
+  background-color: white;
+}
+
+.clear-a-tag {
+  text-decoration: none; 
+  color: black;
+}

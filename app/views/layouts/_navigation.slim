@@ -1,0 +1,37 @@
+.navbar-top.border-bottom
+  .container-lg
+    nav.navbar.navbar-expand-lg
+      .container-fluid.justify-content-between.p-0
+        .left.d-flex
+          .navbar-expand-btn.d-block.d-md-none[data-bs-toggle="modal" data-bs-target="#navbar-left"]
+            i.fa-solid.fa-bars
+          = link_to image_tag("logo.png"), root_path, class: "navbar-logo"
+          .navbar-search.ms-3.d-none.d-lg-block
+            input aria-label="Search" placeholder="Search..." type="text"
+            = link_to "#", class: "navbar-search-icon" do 
+              i.fa-solid.fa-magnifying-glass
+        .right.d-flex
+          - if user_signed_in?
+            = link_to "Create Post", new_post_path, class: "fw-bold navbar-create-post me-2 d-none d-md-block"
+            = link_to new_post_path, class: "navbar-create-post me-2 d-md-none" do 
+              i.fa-solid.fa-file-pen
+            .dropdown
+              button.btn.btn-outline-primary.position-relative.mx-3#navbar-notif-btn type="button" data-bs-toggle="dropdown" data-bs-offset="-20,20"
+                i.fa-solid.fa-bell 
+                span.position-absolute.top-0.start-100.translate-middle.p-2.bg-danger.border.border-light.rounded-circle#navbar-notif-new
+                  span.visually-hidden New notifications
+              ul.py-0.dropdown-menu.navbar-notif-list
+                - if current_user.rcvd_notifs.any? 
+                  = render partial: "notifications/notification", collection: current_user.rcvd_notifs.order("created_at DESC"), as: :notif
+                - else 
+                  li.px-1.py-2.text-center.navbar-empty-notif There is no notifications 
+
+            = link_to user_path(current_user), class: "navbar-user-avatar" do 
+              = image_tag current_user.show_avatar(40,40), class: "rounded-circle mx-3"
+            = link_to "Sign Out", destroy_user_session_path, method: :delete, class: "fw-bold navbar-signout ms-2 d-none d-md-block"
+            = link_to new_post_path, class: "navbar-signout ms-2 d-md-none" do 
+              i.fa-solid.fa-right-from-bracket
+          - else 
+            = link_to "Log in", new_user_session_path, class: "fw-bold navbar-login me-2"
+            = link_to "Create account", new_user_registration_path, class: "fw-bold navbar-signup"
+

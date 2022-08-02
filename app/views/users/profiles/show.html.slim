@@ -1,0 +1,60 @@
+.container-xl.body-content.py-lg-4.py-2
+  .row 
+    .col-12.col-lg-10.offset-lg-1
+      .user-show-top.container-fluid.border
+        .user-show-avatar.row.m-auto.justify-content-start.justify-content-md-center
+          .col-auto 
+            = image_tag @user.show_avatar(130, 130)
+        / follow or following
+        = render partial: "users/profiles/follow"
+        .user-show-details.row.m-auto
+          .user-show-name.text-start.text-md-center
+            = @user.name 
+          .user-show-bio.text-start.text-md-center
+            = @user.bio
+          .user-show-meta.d-flex.justify-content-start.justify-content-md-center
+            .user-show-meta-item 
+              i.fa-solid.fa-cake-candles
+              | Joined on  
+              = @user.created_at.strftime("%b %-d, %Y")
+            .user-show-meta-item 
+              i.fa-solid.fa-envelope 
+              = @user.email
+      
+      .user-show-bottom.container-fluid.px-0
+        .row.m-auto
+          .user-show-left.d-none.col-lg-4.d-lg-block
+            = render partial: "users/profiles/user_statistic"
+            - if @user.comments.present?
+                .user-comments-recent.container-fluid.border.px-0.mb-3
+                  .user-comments-recent-top.border-bottom 
+                    .col-12 Recent comments
+                  = render partial: "users/profiles/comments_recent", collection: @user.comments_8_latest, as: :comment
+          .user-show-right.col-12.col-lg-8.px-0
+            - if @user.posts.present?
+              / posts are ordered by created_at desc
+              - if current_user == @user 
+                = render partial: "users/profiles/user_post", collection: @user.posts.order("created_at DESC"), as: :post
+              - else 
+                = render partial: "users/profiles/user_post", collection: @user.posts.where(state: :public).order("created_at DESC"), as: :post
+            - else 
+              .container-fluid.bg-light.border.rounded.h-100.p-4
+                - if current_user == @user 
+                  | You don't have any posts yet.
+                - else 
+                  | There is no post from this user yet.
+
+.modal.fade id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true"
+  .modal-dialog.modal-dialog-centered.modal-lg
+    .modal-content 
+      .modal-header 
+        h5.modal-title id="avatarModalLabel" Your profile image 
+        button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
+      .modal-body
+        .d-flex.justify-content-center = image_tag @user.show_avatar(500,500)
+        .d-flex.justify-content-center.mt-3
+          = form_with model: @user do |f|
+            = f.file_field :avatar, class:"form-control"
+            = f.hidden_field :description
+            .container-fluid.d-flex.justify-content-center 
+              = f.submit "Save", class:"btn btn-primary mt-3"

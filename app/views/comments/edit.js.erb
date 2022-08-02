@@ -1,0 +1,22 @@
+
+if ($("#edit_comment_comment_form").length) {
+  
+  let comment_content = $("#edit_comment_comment_form #comment_content").val()
+  $("#edit_comment_comment_form").closest(".comment-content").text(comment_content)
+  $("#edit_comment_comment_form").remove()
+}
+
+$("#comment-<%= @comment.id %> .comment-content").first().empty().append("<%= j render(partial: "comments/edit_comment_form") %>")
+
+let old_content = $("#edit_comment_comment_form #comment_content").val()
+
+$("#cancel-edit-comment-btn").on("click", function() {
+  $("#edit_comment_comment_form").closest(".comment-content").text(old_content)
+  $("#edit_comment_comment_form").remove()
+})
+
+function reset_comment() {
+  let comment_content = $("#edit_comment_comment_form #comment_content").val()
+  $("#edit_comment_comment_form").closest(".comment-content").text(comment_content)
+  $("#edit_comment_comment_form").remove()
+}

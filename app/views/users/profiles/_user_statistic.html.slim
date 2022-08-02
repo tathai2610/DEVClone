@@ -1,0 +1,24 @@
+.user-show-statistic.border.mb-3
+  ul 
+    li.user-no-posts 
+      i.fa-solid.fa-scroll
+      span = @user.number_of_posts
+      |  post
+      = @user.number_of_posts < 2 ? "" : "s"
+      |  published
+    li.user-no-comments 
+      i.fa-solid.fa-comment 
+      span = @user.comments.size
+      |  comment
+      = @user.comments.size < 2 ? "" : "s"
+      |  written
+    li.user-no-followers 
+      i.fa-solid.fa-user-check
+      span = @user.followers.size
+      |  follower
+      = @user.followers.size < 2 ? "" : "s"
+    li.user-no-followings 
+      i.fa-solid.fa-user-plus
+      span = @user.followees.size
+      |  following
+      = @user.followees.size < 2 ? "" : "s"

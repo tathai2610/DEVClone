@@ -1,0 +1,36 @@
+  .user-post-latest.container-fluid.border.mb-3 id="post-#{post.id}"
+    .user-post-top.row
+      .user-post-avatar.col-1.pe-0.justify-content-center
+        = link_to post.user do 
+          = image_tag post.user.show_avatar(35, 35)
+      .user-post-info.col-11
+        .container-fluid.px-0 
+          .row.m-auto.justify-content-between
+            .col-auto.ps-0
+              .user-post-info-name 
+                = link_to post.user do
+                  = post.user.name 
+              .user-post-info-date
+                = link_to post do
+                  = post.created_at.strftime("%b %-d")
+            .col-auto
+              - if current_user == post.user 
+                - if post.draft? 
+                  .btn-state-draft Draft 
+                - elsif post.queued? 
+                  .btn-state-queued Queued 
+                - else
+                  .btn-state-public Public 
+    .user-post-mid.row
+      .user-post-title.col-12.col-lg-11.offset-lg-1
+        = link_to post do
+          = post.title 
+    .user-post-bot.row
+      = link_to post, class: "col-auto offset-lg-1 text-decoration-none" do
+        .user-post-likes
+          i.fa-regular.fa-heart 
+          = post.likes.size
+      = link_to post, class: "col-auto text-decoration-none" do
+        .user-post-comments
+          i.fa-regular.fa-comment
+          = post.comments_count

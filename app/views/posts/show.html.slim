@@ -1,0 +1,69 @@
+
+.container-xl.py-lg-4.py-md-2.py-1.px-1.body-content
+  .row.m-auto
+    .col-lg-1.col-md-1.d-none.d-md-block
+      = render "posts/show_left", { post: @post }
+    .col-lg-8.col-md-11.col-sm-12
+      = render "posts/flash"
+
+      .post-show.border
+        - if @post.cover.attached? 
+          .post-cover.container-fluid.px-0 
+            = image_tag @post.cover, class: "rounded-top"
+        .post-show-info 
+          .post-show-user 
+            .post-user-avatar
+              = link_to @post.user do
+                = image_tag @post.user.show_avatar(35,35)
+            .post-user-info 
+              .post-user-email
+                = link_to @post.user do
+                  = @post.user.name
+              .post-user-publish-date 
+                | Posted on #{ @post.created_at.strftime("%B %-d") }
+                - if @post.created_at != @post.updated_at 
+                  |  • Edited on #{ @post.updated_at.strftime("%B %-d") }
+            - if user_signed_in? && current_user.has_role?(:admin) && @post.queued?
+              = form_with model: @post, class: "ms-auto" do |f|
+                = f.hidden_field :title, class: "d-none"
+                = f.submit "Approve", class: "btn btn-primary"
+
+          .post-show-title
+            = @post.title 
+          - if @post.tags.present? 
+            .post-show-tags.container-fluid.px-0 
+              .row.m-auto
+                - @post.tags.each do |tag| 
+                  = link_to "##{tag.title}", tag, class: "post-show-tag text-decoration-none text-dark col-auto py-1 me-2 rounded"
+        .post-show-body 
+          == @post.body
+        - if @post.public?
+          .post-show-comments.border-top
+            .post-comments-count
+              | Comments (#{ @post.comments_count })
+            .post-create-comment.container-fluid.px-0
+                = render partial: 'comments/new_comment_form', locals: { commentable: @post }
+            .post-comments
+              - if @post.comments.any?
+                = render partial: "comments/comment", collection: @post.comments.order("created_at DESC"), locals: { commentable: @post }
+
+    .col-lg-3.d-none.d-lg-block
+      .post-right 
+        .post-right-user.border
+          .post-right-user-top 
+            .post-right-user-avatar
+              = link_to @post.user do
+                = image_tag @post.user.show_avatar(48, 48)
+            .post-right-user-email.d-flex.align-items-center
+              = link_to @post.user do
+                = @post.user.name
+          .post-right-user-details 
+            .post-right-user-row 
+              .post-right-user-label joined 
+              .post-right-user-value = @post.user.created_at.strftime("%b %d, %Y") 
+        - if @other_posts.size > 0
+          .post-right-posts.border 
+            .post-right-posts-top More from #{@post.user.name}
+            - @other_posts.each do |other_post|
+              .post-right-posts-title = link_to post_path(other_post) do 
+                = other_post.title

@@ -1,0 +1,15 @@
+- if !user_signed_in?
+  = link_to user_follows_path(@user), method: :post do 
+    .user-show-follow-btn.btn-follow 
+      | Follow
+- elsif @user == current_user 
+  button.user-show-follow-btn.btn-follow data-bs-toggle="modal" data-bs-target="#avatarModal"
+    | Edit profile image
+- elsif current_user.following? @user 
+  = link_to user_follow_path(@user), method: :delete, remote: true do 
+    .user-show-follow-btn.btn-following
+      | Following
+- else
+  = link_to user_follows_path(@user), method: :post, remote: true do 
+    .user-show-follow-btn.btn-follow 
+      | Follow

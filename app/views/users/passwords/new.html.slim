@@ -1,0 +1,38 @@
+/ <h2>Forgot your password?</h2>
+
+/ <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+/   <%= render "users/shared/error_messages", resource: resource %>
+
+/   <div class="field">
+/     <%= f.label :email %><br />
+/     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+/   </div>
+
+/   <div class="actions">
+/     <%= f.submit "Send me reset password instructions" %>
+/   </div>
+/ <% end %>
+
+/ <%= render "users/shared/links" %>
+
+/ FORGOT PASSWORD PAGE 
+
+.container-fluid.body-content
+  .row 
+    .col-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3.col-xl-4.offset-xl-4.py-0.py-md-2.py-lg-4.px-0
+      .login.border
+        .login-topic Forgot your password?
+        - if resource.errors.any? 
+          #error_explanation
+            ul
+              - resource.errors.full_messages.each do |message| 
+                li = message
+        .login-form
+          = form_with scope: :user, url: password_path(:user), html: { method: :post }, id: "forgot-password-form" do |f|
+            .login-field 
+              .login-label = f.label :email 
+              .login-input = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "you@email.com"
+            .login-action.mt-4
+              = f.submit "Submit"
+          .login-links.mt-4
+            = render "users/shared/links"

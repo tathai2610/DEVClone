@@ -1,0 +1,4 @@
+= link_to [likeable, like], method: :delete, remote: true do
+  .comment-like.comment-liked 
+    i.fa-solid.fa-heart 
+    span.ms-2 = likeable.likes.size

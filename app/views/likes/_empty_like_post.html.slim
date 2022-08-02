@@ -1,0 +1,4 @@
+.post-left-like-icon
+  = link_to [@likeable, :likes], method: :post, remote: true do 
+    i.fa-regular.fa-heart
+span.post-like-count.d-block.text-center = @likeable.likes.size

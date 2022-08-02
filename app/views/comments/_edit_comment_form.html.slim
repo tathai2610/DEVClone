@@ -1,0 +1,4 @@
+= form_with model: [@commentable, @comment], local: false, id: "edit_comment_comment_form" do |form|
+ = form.text_area :content, autofocus: true
+ = form.submit "Edit", class: "button-blue background-white"
+ .button-white.d-inline-block.ms-2 [id="cancel-edit-comment-btn"] Cancel

@@ -1,0 +1,18 @@
+.container-xl.my-3.body-content
+  .row.mx-auto
+    .col-lg-3.col-md-3.d-none.d-sm-none.d-md-block.navbar-left
+      = render "posts/navbar-left"
+
+    .col-lg-9.col-md-9.col-sm-12.posts
+      .posts-show-admin.mb-3 
+        = @state 
+        |  posts
+      = render "posts/flash"
+      - if @posts.any?
+        = render partial: "posts/post", collection: @posts
+      - else 
+        .alert.alert-warning There is no post right now
+  .row.mx-auto.justify-content-center 
+    .col-auto
+      == pagy_bootstrap_nav(@pagy)
+  

@@ -1,0 +1,11 @@
+.user-comment-recent
+  .user-comment-post
+    = link_to comment.post do
+      = comment.post.title 
+  .user-comment-content
+    = link_to comment.post do
+      = comment.content 
+  .user-comment-date
+    = link_to comment.post do
+      = comment.created_at.strftime("%b %-d")
+      

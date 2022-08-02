@@ -1,0 +1,33 @@
+ul.navbar-left-list
+  li
+    = link_to root_path do 
+      i.fa-solid.fa-house-chimney-window
+      span.ms-2 Home
+  - if user_signed_in?
+    li 
+      = link_to my_posts_path do 
+        i.fa-solid.fa-scroll
+        span.ms-2 My posts
+  li 
+    = link_to "#" do 
+      i.fa-solid.fa-lightbulb
+      span.ms-2 FAQ
+  li 
+    = link_to "#" do 
+      i.fa-solid.fa-info
+      span.ms-2 About
+  li 
+    = link_to "#" do 
+      i.fa-solid.fa-file-contract
+      span.ms-2 Contact
+  
+  - if user_signed_in? && current_user.has_role?(:admin)
+    li.mt-5
+      = link_to posts_drafts_path do 
+        i.fa-solid.fa-check-to-slot 
+        span.ms-2 Drafts 
+    li
+      = link_to posts_queue_path do 
+        i.fa-solid.fa-check-to-slot 
+        span.ms-2 Queued posts 
+  

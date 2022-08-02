@@ -1,0 +1,34 @@
+.post-left.pt-5
+  .post-left-like.py-2
+    - if !user_signed_in? 
+      .post-left-like-icon
+        = link_to [post, :likes], method: :post do
+          i.fa-regular.fa-heart
+    - elsif current_user.liked?(post)
+      .post-left-like-icon.liked
+        = link_to [post, :like], method: :delete, remote: true do 
+          i.fa-solid.fa-heart
+    - else 
+      .post-left-like-icon
+        = link_to [post, :likes], method: :post, remote: true do
+          i.fa-regular.fa-heart
+    span.post-like-count.d-block.text-center = post.likes.size 
+    
+  .post-left-comment.py-2
+    - if post.comments.size == 0
+      .post-left-comment-icon 
+        i.fa-regular.fa-comment
+    - else 
+      .post-left-comment-icon.commented
+        i.fa-solid.fa-comment
+    span.post-comment-count.d-block.text-center = post.comments_count
+  - if current_user == post.user
+    - if !post.public?
+      .post-left-edit.py-2
+        .post-left-edit-icon 
+          = link_to edit_post_path(post) do
+            i.fa-regular.fa-pen-to-square
+    .post-left-delete.py-2
+      .post-left-delete-icon
+        = link_to post_path(post), method: :delete, data: { confirm: "Are you sure?" } do 
+          i.fa-regular.fa-trash-can 

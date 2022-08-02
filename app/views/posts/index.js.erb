@@ -1,0 +1,5 @@
+$(".post-item").last().after("<%= j render partial: "posts/post", collection: @posts %>")
+$(".pagy").html("<%== j pagy_bootstrap_nav(@pagy)%>")
+if ($(".pagy .page-item.next").hasClass("disabled")) {
+  $(".page-item.next.disabled a").attr("data-remote", "false")
+}

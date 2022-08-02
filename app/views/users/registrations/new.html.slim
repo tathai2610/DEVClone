@@ -1,0 +1,67 @@
+/ <h2>Sign up</h2>
+
+/ <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+/   <%= render "users/shared/error_messages", resource: resource %>
+
+/   <div class="field">
+/     <%= f.label :email %><br />
+/     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+/   </div>
+
+/   <div class="field">
+/     <%= f.label :password %>
+/     <% if @minimum_password_length %>
+/     <em>(<%= @minimum_password_length %> characters minimum)</em>
+/     <% end %><br />
+/     <%= f.password_field :password, autocomplete: "new-password" %>
+/   </div>
+
+/   <div class="field">
+/     <%= f.label :password_confirmation %><br />
+/     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+/   </div>
+
+/   <div class="actions">
+/     <%= f.submit "Sign up" %>
+/   </div>
+/ <% end %>
+
+/ <%= render "users/shared/links" %>
+
+
+/ SIGNUP PAGE 
+
+.container-fluid.body-content
+  .row 
+    .col-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3.col-xl-4.offset-xl-4.py-0.py-md-2.py-lg-4.px-0
+      .login.border
+        .login-title Welcome to DEV Community
+        .login-description DEV Community is a community of #{User.count} amazing developers
+        .login-topic Create account to share your thoughts
+        - if resource.errors.any? 
+          #error_explanation
+            ul
+              - resource.errors.full_messages.each do |message| 
+                li = message
+        .login-form
+          = form_with scope: :user, url: registration_path(:user), id: "signup-form", validation: true do |f|
+            .login-field 
+              .login-label = f.label :username 
+              .login-input = f.text_field :username, autofocus: true, autocomplete: "username"
+            .login-field 
+              .login-label = f.label :email 
+              .login-input = f.email_field :email, autocomplete: "email"
+            .login-field 
+              .login-label 
+                = f.label :password
+                - if @minimum_password_length
+                  em 
+                    |  (#{@minimum_password_length} characters minimum)
+              .login-input = f.password_field :password, autocomplete: "new-password"
+            .login-field 
+              .login-label = f.label :password_confirmation
+              .login-input = f.password_field :password_confirmation, autocomplete: "new-password"
+            .login-action.mt-4
+              = f.submit "Sign up"
+          .login-links.mt-4
+            = render "users/shared/links"

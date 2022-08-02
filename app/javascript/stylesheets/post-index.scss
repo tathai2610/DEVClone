@@ -1,0 +1,139 @@
+@use "config";
+
+.navbar-left {
+    &-list {
+        width: 100%;
+        padding-left: 0;
+
+        li { list-style-type: none; }
+    }
+
+    a {
+        width: 100%;
+        display: inline-block;
+        @extend .button-white;
+
+        i {
+            width: 24px;
+            text-align: center;
+        }
+    }
+}
+
+.posts {
+    & > a {
+        text-decoration: none;
+        color: config.$black;
+    }
+    .post-item {
+        background-color: config.$white;
+        border-radius: 7px;
+        padding: 24px;
+        color: black;
+
+        .post-title {
+            font-size: 30px;
+            font-weight: 700;   
+        }
+
+        .post-tag:hover {
+            background-color: rgba($color: rgb(25,25,25), $alpha: 0.05);
+        }
+
+        a { color: black; }
+        a:hover { color: darkblue; }
+
+    }
+
+    .post-bottom {
+        .post-likes, .post-comments {
+            @extend .button;
+
+            &:hover {
+                background-color: #e8e8e4;
+            }
+        }
+        .post-index-liked {
+            background-color: #D600FF17;
+            i {
+                color: config.$pink;
+            }
+            &:hover {
+                background-color: #D600FF17;
+            }
+        }
+    }
+    
+}
+
+.post-owner {
+    .post-owner-avatar {        
+        img {
+            width: 40px;    
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+    .post-owner-email {
+        font-size: 14px;
+    }
+    .post-owner-publish-date {
+        font-size: 12px;
+    }
+}
+
+.intro {
+    background-color: config.$white;
+    border-radius: 7px;
+    padding: 16px;
+
+    &-subtitle {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 16px;
+
+        a {
+            text-decoration: none;
+            color: config.$blue;
+
+            &:hover {
+                text-decoration: underline;
+                color: #3f37c9;
+            }
+        }
+    }
+
+    &-detail {
+        color: config.$gray-text;
+        margin-bottom: 16px;
+    }
+
+    &-create-account, &-login {
+        height: auto;
+        width: 100%;
+        
+        a {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+
+    &-create-account a {
+        @extend .button-blue;
+        margin-bottom: 5px;
+    }
+
+    &-login a {
+        @extend .button-white;
+    }
+}
+
+a:hover {
+    color: darkblue;
+}
+
+.pagy-bootstrap-nav {
+    visibility: hidden;
+}

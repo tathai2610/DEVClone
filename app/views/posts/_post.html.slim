@@ -1,0 +1,43 @@
+.container-fluid.post-item.mb-3.border id="post-#{post.id}"
+  .post-owner.d-flex.mb-2.row.mx-auto
+    .post-owner-avatar.col-1.px-0
+      = link_to post.user, class: "text-decoration-none" do
+        = image_tag url_for(post.user.show_avatar(35,35))
+    .post-owner-details.ms-2.col-auto.px-0
+      .post-owner-email = link_to post.user.name, post.user, class: "text-decoration-none text-dark"
+      .post-owner-publish-date 
+        = link_to post.created_at.strftime("%b %-d"), post, class: "text-decoration-none"
+    .post-state.col-auto.ms-auto 
+      - if @state.present? && @state == "My"
+        - if post.draft? 
+          .btn-state-draft Draft 
+        - elsif post.queued? 
+          .btn-state-queued Queued 
+        - elsif post.public?
+          .btn-state-public Public 
+  .row.mx-auto
+    .col.offset-1.px-0
+      = link_to post, class: "text-decoration-none" do
+        .post-title = post.title
+  .row.mx-auto.mb-3
+    .col.offset-1.px-0
+      .post-tags.row.mx-auto
+        - if post.tags.any? 
+          - post.tags.each do |tag| 
+            = link_to tag, class:"post-tag text-decoration-none text-dark col-auto p-1 me-2 rounded"
+              .col-auto.ps-0 ##{tag.title}
+  .row.mx-auto
+    .col.offset-1.px-0
+      .post-bottom.d-flex 
+        = link_to post, class: "d-flex text-decoration-none text-dark" do 
+          - if user_signed_in? && current_user.liked?(post)
+            .post-likes.post-index-liked
+              i.fa-solid.fa-heart.me-2
+              = post.likes.size
+          - else
+            .post-likes
+              i.fa-regular.fa-heart.me-2
+              = post.likes.size
+          .post-comments.ms-2
+            i.fa-regular.fa-comment.me-2
+            = post.comments.size

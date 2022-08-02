@@ -1,0 +1,16 @@
+// Remove comment
+$("#comment-<%= @comment.id %>").closest(".post-comment").remove()
+
+<% if @commentable.is_a? Post %>
+// Decrease comment count 
+$("span.post-comment-count").text("<%= @commentable.comments_count - 1 %>")
+$(".post-comments-count").text("Comments (<%= @commentable.comments_count - 1 %>)")
+<% end %>
+
+// Change css for left-comment-icon if needed 
+if ($(".post-comment-count").text() == "0") {
+  $(".post-left-comment-icon").removeClass("commented")
+  $("i.fa-comment").removeClass("fa-solid")
+  $("i.fa-comment").addClass("fa-regular")
+}
+

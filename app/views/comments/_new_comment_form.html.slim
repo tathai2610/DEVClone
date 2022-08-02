@@ -1,0 +1,18 @@
+- if commentable.is_a? Post
+  = form_with model: [commentable, Comment.new], method: :post, class: "row m-auto", local: (user_signed_in? ? false : true), validate: false do |form|
+    .col-1.px-0
+      = image_tag (user_signed_in? ? current_user.show_avatar(35,35) : "user-avatar.jpeg")
+    .col-11.px-0
+      = form.text_area :content, placeholder: "Add to the discussion"
+    .col-11.offset-1.px-0 
+      = form.submit "Submit", class: "button-blue background-white"
+- elsif commentable.is_a? Comment
+  .post-create-comment.mt-2.mb-0
+    = form_with model: [@commentable, @comment], method: :post, class: "row m-auto", local: (user_signed_in? ? false : true), id: "new_comment_comment_form", validate: true do |form|
+      .col-1.px-0
+        = image_tag (user_signed_in? ? current_user.show_avatar(35,35) : "user-avatar.jpeg")
+      .col-11.px-0
+        = form.text_area :content, placeholder: "Add to the discussion", autofocus: true
+      .col-11.offset-1.px-0 
+        = form.submit "Submit", class: "button-blue background-white"
+  

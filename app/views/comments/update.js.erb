@@ -1,0 +1,3 @@
+$("#comment-<%= @comment.id %> .comment-content").first().text("<%= @comment.content %>")
+let update = '<span class="comment-update-date ms-1">• Edited on <%= @comment.updated_at.strftime("%b %-d") %></span>'
+$("#comment-<%= @comment.id %> .comment-create-date").first().after(update)

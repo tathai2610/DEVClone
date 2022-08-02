@@ -1,0 +1,4 @@
+.post-left-like-icon.liked
+  = link_to [likeable, like], method: :delete, remote: true do 
+    i.fa-solid.fa-heart
+span.post-like-count.d-block.text-center = likeable.likes.size

@@ -1,0 +1,410 @@
+@use "config";
+
+.post-left {
+  &-like, &-comment, &-edit, &-delete {
+    text-align: center;
+
+    &-icon {
+      height: 40px;
+      width: 40px;
+      margin: auto;
+      border-radius: 50%;
+      position: relative;
+
+      a {
+        color: config.$black;
+      }
+
+      i {
+        font-size: 20px;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%);
+      }
+    }
+  }
+  
+}
+
+.post-left-like-icon {
+  &:hover {
+    background-color: #D600FF17;
+    cursor: pointer;
+
+    i {
+      color: config.$pink;
+    }
+  }
+  &.liked {
+    background-color: #D600FF17;
+    cursor: pointer;
+
+    a {
+      color: config.$pink;
+    }
+    i {
+      color: config.$pink;
+    }
+  }
+}
+
+
+
+.post-left-comment-icon {
+  &:hover {
+    background-color: #00ff9f17;
+
+    i {
+      color: config.$green;
+    }
+  }
+
+  &.commented {
+    background-color: #00FF9F17;
+    cursor: pointer;
+
+    a {
+      color: config.$green;
+    }
+    i {
+      color: config.$green;
+    }
+  }
+}
+
+.post-left-edit-icon:hover {
+  background-color: #00b8ff17;
+
+  i {
+    color: config.$light-blue;
+  }
+}
+
+.post-left-delete-icon:hover {
+  background-color: #ff083117;
+
+  i {
+    color: config.$red;
+  }
+}
+
+.post-show {
+  background-color: config.$white;
+  border-radius: 7px;
+
+  .post-cover img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+  }
+
+  &-info {
+    padding: 32px 64px 0;
+  }
+
+  &-title {
+    font-size: 48px;
+    font-weight: bold;
+  }
+
+  &-tag {
+    font-size: 14px;
+  }
+  
+  &-tag:hover {
+    background-color: rgba($color: rgb(25,25,25), $alpha: 0.05);
+    
+  }
+
+  &-body {
+    padding: 32px 64px;
+    font-size: 20px;
+  }
+
+  &-comments {
+    padding: 32px 64px;
+
+    .post-comments-count {
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+  }
+}
+
+.post-show-user {
+  display: flex;
+  margin-bottom: 20px;
+
+  .post-user-avatar {
+    height: 40px; 
+    width: 40px;
+    margin-right: 17px;
+    
+    img {
+      height: 40px; 
+      width: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .post-user-info {
+    .post-user-email {
+      font-weight: bold;
+
+      a { @extend .clear-a-tag; }
+    }
+    .post-user-publish-date {
+      font-size: 12px;
+      color: config.$gray-text;
+    }
+  }
+}
+
+.post-create-comment {
+  margin-bottom: 16px;
+
+  .col-1 {
+    position: relative;
+
+    img {
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      object-fit: cover;
+    }
+  }
+
+  .col-11 textarea {
+    padding: 8px;
+    width: 100%;
+    border-radius: 7px;
+    border: .5px solid config.$gray-text;
+    resize: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+}
+
+.post-comment {
+  margin-bottom: 0; 
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .col-1 {
+    position: relative;
+
+    img {
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      object-fit: cover;
+    }
+  }
+}
+
+.post-comments > .post-comment {
+  margin-bottom: 8px;
+}
+
+.comment-container {
+  padding: 4px;
+  border-radius: 7px;
+
+  .comment-user-info {
+    padding: 8px 12px 0;
+
+    .comment-create-date, .comment-update-date {
+      color: config.$gray-text;
+      font-size: 12px;
+    }
+  }
+
+  .comment-options {
+    position: relative;
+
+    &-icon {
+      height: 32px;
+      width: 32px;
+      padding: 4px;
+      // text-align: center;
+      border-radius: 7px;
+      color: config.$gray-text;
+      
+      &:hover {
+        background-color: #dedede;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .comment-content {
+    padding: 0 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    font-size: 18px;
+
+    textarea {
+      border-radius: 7px;
+      padding: 16px 32px;
+      border-color: config.$gray-text;
+      width: 100%;
+    }
+  }
+}
+
+.comment-options-content {
+  position: absolute;
+  right: 0;
+  padding: 8px;
+  width: 250px;
+  border-radius: 7px;
+  margin-top: 4px;
+  background-color: config.$white;
+  display: none;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;  
+
+    a {
+      text-decoration: none;
+      @extend .button-white;
+      width: 100%;
+      display: block;
+    }
+  }
+}
+
+.post-right-user {
+  padding: 16px;
+  background-color: config.$white;
+  border-radius: 7px;
+
+  .post-right-user-top {
+    display: flex;
+    
+    .post-right-user-avatar {
+      
+      img {
+        height: 48px;
+        width: 48px;
+        border-radius: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .post-right-user-email {
+      margin-left: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      a { @extend .clear-a-tag; }
+    }
+  }
+
+  .post-right-user-details {
+    margin-top: 20px;
+    .post-right-user-row {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      .post-right-user-label {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.post-right-posts {
+  margin-top: 16px;
+  background-color: config.$white;
+  border-radius: 7px;
+
+  &-top {
+    padding: 12px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: .5px solid config.$gray;
+  }
+
+  &-title {
+    padding: 16px;
+    border-bottom: .5px solid config.$gray;
+    &:last-child {
+      border-style: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: config.$black;
+      &:hover {
+        color: config.$blue;
+      }
+    }
+  }
+}
+
+.posts-show-admin {
+  background-color: black;
+  color: white;
+  font-size: 50px;
+  font-weight: 800;
+  padding: 32px 64px;
+  border-radius: 7px;
+}
+
+@mixin comment-interaction {
+  padding: 4px 12px 4px 8px;
+  margin-right: 4px;
+  font-size: 14px; 
+  color: black;
+  border-radius: 7px;
+  
+  i {  
+    margin-right: 4px;
+  }
+
+  &:hover {
+    background-color: config.$gray;
+  }
+}
+
+.comment-like-section a,
+.comment-reply-section a {
+  @extend .clear-a-tag;
+}
+
+.comment-like, .comment-reply {
+  @include comment-interaction;
+}
+
+.comment-liked {
+  background-color: lightpink;
+  i {
+    color: deeppink;
+  }
+  &:hover {
+    background-color: lightpink;
+  }
+}
+
+#cancel-edit-comment-btn {
+  cursor: pointer;
+}

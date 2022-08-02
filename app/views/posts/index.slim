@@ -1,0 +1,28 @@
+.container-xl.my-3.body-content
+  .row.mx-auto
+    .col-lg-3.col-md-3.d-none.d-sm-none.d-md-block.navbar-left
+      = render "navbar-left"
+
+    .col-lg-6.col-md-9.col-sm-12.posts#posts
+      = render "flash"
+      = render partial: "post", collection: @posts
+      .container-fluid
+        .row.mx-auto.justify-content-center 
+          .col-auto.pb-5.pagy
+            == pagy_bootstrap_nav(@pagy)
+    .col-lg-3.d-sm-none.d-md-none.d-lg-block
+      - unless user_signed_in?
+        .intro 
+          .intro-subtitle
+            = link_to "DEV Community", root_path 
+            |  is a community of #{User.count} amazing developers
+          .intro-detail
+            | We're a place where coders share, stay up-to-date and grow their careers. 
+          .intro-create-account
+            = link_to "Create account", new_user_registration_path
+          .intro-login 
+            = link_to "Log in", new_user_session_path
+
+  
+ 
+        

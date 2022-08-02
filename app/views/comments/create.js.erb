@@ -1,0 +1,33 @@
+<% if @commentable.is_a? Post %>
+
+// Increase comment count for post
+$(".post-comment-count").text("<%= @commentable.comments_count %>")
+$(".post-comments-count").text("Comments (<%= @commentable.comments_count %>)")
+
+// Append new comment
+$(".post-comments").prepend("<%= j render(partial: 'comments/comment', locals: { comment: @comment, commentable: @commentable }) %>")
+
+// Reset textarea
+$("#comment_content").val("")
+$("#comment_content").height("auto")
+
+// Change css for left-comment-icon if needed 
+if ($(".post-comment-count").text() == "1") {
+  $(".post-left-comment-icon").addClass("commented")
+  $(".post-left-comment i.fa-comment").removeClass("fa-regular")
+  $(".post-left-comment i.fa-comment").addClass("fa-solid")
+}
+
+<% elsif @commentable.is_a? Comment %>
+
+// Remove the new comment form
+$("#new_comment_comment_form").remove()
+
+// Increase comment count for post
+<%# $(".post-comment-count").text(parseInt($(".post-comment-count").text()) + 1)
+$(".post-comments-count").text("Comments (" + $(".post-comment-count").text() + ")") %>
+
+// Add new comment 
+$("#comment-<%= @commentable.id %> > .comment-interaction").after("<%= j render(partial: 'comments/comment', locals: { comment: @comment, commentable: @commentable }) %>")
+
+<% end %>

@@ -1,0 +1,42 @@
+
+= form_with model: post, class: "post-show border post-new-form", validate: false , id:"edit-post-form" do |form|
+  = render "flash"
+  - if post.cover.attached? 
+    .container.fluid.px-0 
+      = image_tag post.cover, class: "rounded"
+  .post-new-cover.container-fluid.px-0
+    .row.m-auto.mb-1
+      .col-12
+        = form.label :cover, "Add a new cover image"
+    .row.m-auto
+      .col-12
+        = form.file_field :cover, class: "form-control w-50"
+  .post-new-title
+    = form.text_area :title, placeholder: "New post title here..."
+  .post-new-tags
+    = form.hidden_field :tags, value: @tags_text
+    .tags-holder.mb-1
+      - if post.tags.present? 
+        - post.tags.each do |tag| 
+          .post-new-tag.input-group.me-1.mb-1
+            input type="text" value="##{tag.title}" class="form-control"
+            button.btn.btn-outline-danger.tag-remove-btn type="button"
+              i.fa-solid.fa-x
+      - if post.tags.size != 4 
+        .post-new-tag-user.input-group.me-1.mb-1
+          input type="text" placeholder="New tag" class="form-control"
+          button.btn.btn-outline-success.tag-add-btn type="button"
+            i.fa-solid.fa-check
+  .avail-tags.border.rounded
+    .avail-tags-top.p-3.border-bottom Top tags
+    .avail-tags-body.container-fluid.px-0
+      - @tags_other.each do |tag| 
+        .avail-tag.row.mx-auto.p-3
+          | #
+          = tag.title
+  .post-new-body
+    = form.rich_text_area :body, placeholder: "Write your post content here..."
+  .post-new-submit.d-flex.justify-content-center.justify-content-lg-start
+    = form.submit "Save draft", name: "commit", class:"button-blue background-white me-3", id:"draft"
+    = form.submit "Publish", name: "commit", class:"button-blue background-white me-3", id: "queue"
+    = link_to "Cancel", post, class:"text-decoration-none post-new-cancel"

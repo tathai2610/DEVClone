@@ -1,0 +1,4 @@
+= link_to [@likeable, :likes], method: :post, remote: (user_signed_in? ? true : false) do 
+  .comment-like
+    i.fa-regular.fa-heart 
+    span.ms-2 = @likeable.likes.size

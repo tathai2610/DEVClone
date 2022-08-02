@@ -1,0 +1,17 @@
+- unless notif.sender == notif.recipient
+  li 
+    .container-fluid.py-2.border-top.border-bottom 
+      .row.mx-auto
+        .col-2.px-0
+          = image_tag url_for(notif.sender.show_avatar(56, 56)), class: "rounded-circle notif-sender-avatar"
+        .col-10.pe-0
+          p 
+            = link_to notif.sender.name + " ", user_path(notif.sender), class: "text-decoration-none"
+            = notif.action
+            - if notif.notifiable.is_a? User
+              |  you! 
+            - elsif notif.notifiable.is_a? Post 
+              = link_to " your post", post_path(notif.notifiable)
+            - elsif notif.notifiable.is_a? Comment 
+              = link_to " your comment", post_path(notif.notifiable.post)
+    

@@ -1,0 +1,5 @@
+<% if @likeable.is_a? Comment%>
+$("#comment-<%= @likeable.id %> .comment-like-section").first().empty().append("<%= j render(partial: 'empty_like_comment') %>")
+<% else %>
+$(".post-left-like").first().empty().append("<%= j render(partial: 'empty_like_post') %>")
+<% end %>
